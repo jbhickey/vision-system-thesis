@@ -1,0 +1,94 @@
+\chapter{Research} % Main chapter title
+
+\label{Research} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+
+\lhead{Chapter 1. \emph{Research}}
+
+\section{Vector Field Colour Approximation}\label{sec:vector}
+%Optimal Solution? Show graphical results and experiments
+Initial experiments were conducted to highlight the benefits and detriments of the \textbf{RGB} colour space when performing colour segmentation using low complexity clustering techniques.
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{rgb.eps}
+  \end{center}
+  \caption{Experimental results showing \textbf{RGB} clusters of like coloured stickers}
+  \label{fig:rgbtest}
+\end{figure}
+
+It was repeatedly observed that the mean of samples taken from the centre of a single sticker had a large variance (see table \ref{tab:rgb_var}), which could potentially cause problems during segmentation, as the segmentation algorithm relies on the definition of strict boundaries that differ one colour from another.
+
+\begin{equation} \label{eq:variance}
+s^2 = \frac{\Sigma(x-\bar{x})}{n}
+\end{equation}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|l|}
+    \hline
+    \textbf{R} in yellow sticker & 149 \\ \hline
+    \textbf{G} in yellow sticker & 163.50 \\ \hline
+    \textbf{B} in yellow sticker & 29.659 \\ \hline
+    \textbf{R} in orange sticker & 48.840 \\ \hline
+    \textbf{G} in orange sticker & 17.518 \\ \hline
+    \textbf{B} in orange sticker & 27.477 \\ \hline
+    \textbf{R} in green sticker & 67.543 \\ \hline
+    \textbf{G} in green sticker & 78.916 \\ \hline
+    \textbf{B} in green sticker & 88.462 \\ \hline
+  \end{tabular}
+  \caption{Variance in \textbf{RGB} values of like sticker colours}
+  \label{tab:rgb_var}
+\end{table}
+
+The spikes in variance were much greater for red and blue stickers, this can be visually observed in figure \ref{fig:rgbtest}. This can be caused by visual artefacts commonly found when recreating bright luminousity and environmental effects from glare in an image \cite{mccann2007camera}. 
+
+\section{Color Space Conversion for Optimisation}
+Clustering methods can be computationally expensive, and can potentially produce errors during segmentation as discussed in section \ref{sec:vector}. Each set contains three dimensions of information, which can be reduced to one dimension of complexity, at the cost of some overlap between distinctive colours. This effect is due to each dimension being combined and projected onto a one dimensional line that contains all information \cite{celenk1991colour}.\\
+
+Once the colour information has been reduced to one dimension, it is a simple thresholding process to classify the different colours. This same thresholding can be performed with simpler boundaries using the \textbf{HSV} colour space, as the sample variance is less than that of clustered samples, and it is a one dimensional value for this exercise (once the white samples have been extracted).\\
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|l|}
+    \hline
+    Yellow & 1.6702 \\ \hline
+    Blue & 6.4094 \\ \hline
+    Green & 0.94316 \\ \hline
+    Orange & 1.8701 \\ \hline
+    Red & 10.984 \\ \hline
+  \end{tabular}
+  \caption{Variance in hue of like sticker colours}
+  \label{tab:hue_var}
+\end{table}
+
+\section{Image Replication for Simulation}
+%Generating a cube like image as an array with realistic noise
+%talk about destructive artifacts
+
+\begin{verbatim}
+for(i=0;i<image_resolution;i++){
+  r[i] += (rand() % 5 + 1);
+  g[i] += (rand() % 5 + 1);
+  b[i] += (rand() % 5 + 1);
+}
+\end{verbatim}
+
+\section{Segmentation and Classification}
+%Appropriate boundaries and decision making (Is it red/white etc.)
+
+\begin{verbatim}
+for(i=0;i<9;i++){
+  if(hue_sample[i]>low_bound & hue_sample[i]<up_bound){    
+    face[i] = 'colour_based_on_bounds';
+  }
+}
+\end{verbatim}
+
+\begin{verbatim}
+if(hue_sample[i]<10 | hue_sample[i]>340){    
+  //red
+  face[i] = 'R';
+}
+\end{verbatim}
+
+%%Need white classificaitn

@@ -1,0 +1,971 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Thesis 
+% LaTeX Template
+% Version 1.4 (30/6/13)
+%
+% This template has been downloaded from:
+% http://www.latextemplates.com
+%
+% Original authors:
+% Steven Gunn 
+% http://users.ecs.soton.ac.uk/srg/softwaretools/document/templates/
+% and
+% Sunil Patel
+% http://www.sunilpatel.co.uk/thesis-template/
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+% Note:
+% Make sure to edit document variables in the Thesis.cls file
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+
+\documentclass[11pt, a4paper, oneside]{Thesis} % Paper size, default font size and one-sided paper
+\graphicspath{{./Pictures/}} % Specifies the directory where pictures are stored
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+
+\usepackage{pdfpages}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{float}
+\usepackage{caption}
+\usepackage[square, numbers, comma, sort&compress]{natbib} % Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers' 
+\hypersetup{urlcolor=blue, colorlinks=true} % Colors hyperlinks in blue - change to black if annoying
+\title{\ttitle} % Defines the thesis title - don't touch this
+
+
+\DeclareCaptionFormat{myformat}{#1#2#3\hrulefill}
+\captionsetup[figure]{format=myformat}
+
+\begin{document}
+
+\frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
+
+\setstretch{1.3} % Line spacing of 1.3
+
+% Define the page headers using the FancyHdr package and set up for one-sided printing
+\fancyhead{} % Clears all page headers and footers
+\rhead{\thepage} % Sets the right side header to show the page number
+\lhead{} % Clears the left side page header
+
+\pagestyle{fancy} % Finally, use the "fancy" page style to implement the FancyHdr headers
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % New command to make the lines in the title page
+
+% PDF meta-data
+\hypersetup{pdftitle={\ttitle}}
+\hypersetup{pdfsubject=\subjectname}
+\hypersetup{pdfauthor=\authornames}
+\hypersetup{pdfkeywords=\keywordnames}
+
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage}
+\begin{center}
+~\\
+\textsc{\LARGE \univname}\\[1.5cm] % University name
+~\\
+\textsc{\Large Bachelor's Thesis}\\[0.5cm] % Thesis type
+~\\
+%\HRule \\[0.4cm] % Horizontal line
+~\\
+{\huge \bfseries \ttitle}\\[0.4cm] % Thesis title
+~\\~\\
+%\HRule \\[1.5cm] % Horizontal line
+
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Author:}\\
+\href{http://www.johnsmith.com}{\authornames} % Author name - remove the \href bracket to remove the link
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Supervisor:} \\
+\href{}{\supname} % Supervisor name - remove the \href bracket to remove the link  
+\end{flushright}
+\end{minipage}\\[3cm]
+ 
+\large \textit{A thesis submitted in fulfilment of the requirements\\ for the degree of \degreename}\\[0.3cm] % University requirement text
+\textit{in the}\\[0.4cm]
+\deptname\\[2cm] % Research group name and department name
+ 
+{\large \today}\\[4cm] % Date
+%\includegraphics{Logo} % University/department logo - uncomment to place it
+ 
+\vfill
+\end{center}
+
+\end{titlepage}
+
+%----------------------------------------------------------------------------------------
+%	DECLARATION PAGE
+%	Your institution may give you a different text to place here
+%----------------------------------------------------------------------------------------
+
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT PAGE
+%----------------------------------------------------------------------------------------
+
+\addtotoc{Abstract} % Add the "Abstract" page entry to the Contents
+
+\abstract{\addtocontents{toc}{\vspace{1em}} % Add a gap in the Contents, for aesthetics
+This document details Joshua Hickey's fourth year electronic engineering project: a \emph{Rubik's Cube} vision system. 
+The aim of the project was to deliver an efficient and reliable method of capturing and recording the colours and configuration of a Rubik's Cube for further algorithmic processing.
+
+The project requires well researched and tested concepts of image processing and a robust design for repeatability that efficiently implements these concepts. The research experiments conducted provided valuable insight into colour spaces and classification methods, that facilitated optimisation of the classification algorithm, severely reducing computational complexity.
+
+Some crucial parts of the project were not implemented, but the potential for image processing on the embedded system was effectively demonstrated using simulated image constructs. The functioning embedded system provides an excellent foundation for future progress and even the implementation of inexpensive image processing in existing robotic systems.   
+}
+
+\clearpage % Start a new page
+
+%----------------------------------------------------------------------------------------
+%	ACKNOWLEDGEMENTS
+%----------------------------------------------------------------------------------------
+
+\setstretch{1.3} % Reset the line-spacing to 1.3 for body text (if it has changed)
+
+\acknowledgements{\addtocontents{toc}{\vspace{1em}} % Add a gap in the Contents, for aesthetics
+}
+
+I would like to acknowledge my supervisor Mr. Andrew Martchenko, whos advice, guidance, and encouragement, was absolutely vital to the success and completion of objectives and general progress of the project. Dr. Robert Ross, my co-supervisor, provided very helpful insight into specific and crucial aspects of the project. The LaTrobe workshop staff Mark Gentile and Stephen Wang were always available for assistance and consultation on problems, also, without a majority of the LaTrobe Electronic Engineering staff, my project would not have been as great a learning exercise. Thanks to my student colleagues and my parter Juanita, without them it may not have been such a sane, enjoyable and positive experience. 
+
+\clearpage % Start a new page
+
+%----------------------------------------------------------------------------------------
+%	LIST OF CONTENTS/FIGURES/TABLES PAGES
+%----------------------------------------------------------------------------------------
+
+\pagestyle{fancy} % The page style headers have been "empty" all this time, now use the "fancy" headers as defined before to bring them back
+
+\lhead{\emph{Contents}} % Set the left side page header to "Contents"
+\tableofcontents % Write out the Table of Contents
+
+\lhead{\emph{List of Figures}} % Set the left side page header to "List of Figures"
+\listoffigures % Write out the List of Figures
+
+\lhead{\emph{List of Tables}} % Set the left side page header to "List of Tables"
+\listoftables % Write out the List of Tables
+%----------------------------------------------------------------------------------------
+%	ABBREVIATIONS
+%----------------------------------------------------------------------------------------
+\clearpage % Start a new page
+\setstretch{1.5} % Set the line spacing to 1.5, this makes the following tables easier to read
+
+\lhead{\emph{Abbreviations}} % Set the left side page header to "Abbreviations"
+\listofsymbols{ll} % Include a list of Abbreviations (a table of two columns)
+{
+\textbf{RGB} & \textbf{R}ed \textbf{G}reen \textbf{B}lue (referring to colour space) \\
+\textbf{HSV} & \textbf{H}ue \textbf{S}aturation \textbf{V}alue (referring to colour space) \\
+\textbf{AVR} & Not an acronym, instead refers to a particular Atmel Microcontroller family \\
+\textbf{CMOS} & \textbf{C}omplementary \textbf{M}etal \textbf{O}xide \textbf{S}emiconductor \\
+\textbf{PWM} & \textbf{P}ulse \textbf{W}idth \textbf{M}odulation \\
+\textbf{PLL} & \textbf{P}hase \textbf{L}ocked \textbf{L}oop \\
+\textbf{TWI} & \textbf{T}wo \textbf{W}ire \textbf{I}nterface \\
+\textbf{ASF} & \textbf{A}tmel \textbf{S}oftware \textbf{F}ramework \\
+\textbf{SLAM} & \textbf{S}imultaneous \textbf{L}ocalization \textbf{A}nd \textbf{M}apping \\
+
+%\textbf{Acronym} & \textbf{W}hat (it) \textbf{S}tands \textbf{F}or \\
+}
+%----------------------------------------------------------------------------------------
+%	THESIS CONTENT - CHAPTERS
+%----------------------------------------------------------------------------------------
+
+\mainmatter % Begin numeric (1,2,3...) page numbering
+\pagestyle{fancy} % Return the page headers back to the "fancy" style
+
+
+
+
+\chapter{Introduction}
+\label{Introduction} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+\lhead{Chapter 1. \emph{Introduction}}
+The \emph{Rubik's Cube} puzzle has provided the basis for practical applications of image processing techniques since the conception of digital platforms to execute and serve the techniques. Competitive scenes emerged soon after, with the rise in popularity of a communal problem solving challenge for robotic devices.  
+
+This project is dedicated to demonstrating the viability of a low cost solution to fully embedded machine vision with image processing and analysis capabilities, with a final goal to acquire and store images of a \emph{Rubik's Cube} and reliably segment the colours of the stickers. To achieve this level of functionality the system will employ efficient image processing techniques derived from background research tasks and experiments conducted, and make decisions based on the numerical information returned utilizing a microcontroller capable of performing floating point operations at a high clock frequency. In order to display the results to the user and potentially implement into a fully embedded solving system, a simple on-board user interface and a high speed receiver/transmitter controller will be utilized to minimize solving time for a competitive application. The nature of the project is minimalistic, with lowest possible power consumption, image resolution, memory footprint and computational complexity a priority at all phases. 
+
+\section{Project Objectives}
+The objectives of the project are assigned in order of importance and dependancy. The base functionality of the project is achieved when the most critical (primary) objectives have been completed. Secondary objectives are defined by potential expansion to the functionality of the project, and depend on completion of the primary objectives. Tertiary objectives are not critical to the project's base functionality either, and are more conceptual objectives, theorized for extended system functionality or challenging and interesting research exercises. 
+
+\subsection{Primary Objectives}
+\begin{itemize}
+\item Design printed circuit boards to physically and electronically cater for the Toshiba
+TCM8230MD camera.
+\item Design the main processing board to store and process images.
+\item Implement user input and output to start the imaging process and display the
+status of the imaging procedure.
+\item Implement image processing techniques to learn the colours of a \emph{Rubik's Cube}.
+\end{itemize}
+
+\subsection{Secondary Objectives}
+\begin{itemize}
+\item Design and manufacture or acquire a suitable platform to allow the \emph{Rubik’s Cube}
+to remain stationary during the image capture.
+\item Research into edge detection techniques to design and implement extra functionality.
+\item Research into colour approximation and design and implement extra functionality.
+\end{itemize}
+
+\subsection{Tertiary Objectives}
+\begin{itemize}
+\item Implement using a serial connection, the transfer of the colour configuration into
+a solving machine or PC.
+\item Design standardized user input/output to display the timeliness of colour detec-
+tion and the solver running time.
+\end{itemize}
+
+
+\section{Document Structure}
+This document is structured to provide the reader insight into mostly chronological project progress:
+\begin{itemize}
+\item Chapter \ref{chap:background} introduces some concepts used to motivate experimental research or implement particular technologies in the system. Some information on other solutions provides an interesting perspective
+\item Chapter \ref{chap:research} highlights research exercises conducted to make decisions on system design and potential algorithm structures.
+\item Chapter \ref{chap:design} provides insight into actual design considerations at the time, as well as revision information and design for portability of the image processing software. 
+\item Chapter \ref{chap:implementation} gives a verbatim explanation of how experimental results from research and design considerations were implemented in the embedded design and on the simulation platform.
+\item Chapter \ref{chap:testing} shows testing methodologies and platforms used for the applicable stages of the project.
+\item Chapter \ref{chap:project_man} details the project budget and working timeline throughout the two semesters.
+\item Chapter \ref{chap:conc} is a reflection on the pitfalls and successes of the project and the possibilities for increased functionality from future work.
+\end{itemize}  
+
+\chapter{Background}
+\label{chap:background}
+\lhead{Chapter 2. \emph{Background}}
+
+\section{Machine Vision}\label{sec:machine_vision}
+``A machine vision system recovers useful information about a scene from its two-dimensional projections'' \cite{jain1995machine}. Machine vision is typically useful in applications requiring automation and decision making based on the environment or surrounding objects. This functionality is achieved by implementing various forms of image processing and image analysis as required by the system, that is, a machine vision system typically is a two-dimensional projection of a three-dimensional environment, which must have some known parameters in order to extract useful information from it \cite{jain1995machine}.
+
+Image acquisition is the initial and crucial process of transforming and storing optical data in a numerical form that can then be processed and analysis as required by the application. The actual acquisition process at an electrical level refers to the conversion of luminousity and environmental artifacts into electrical signals that can be digitized. Machine vision for industrial applications typically deals with constraints within the photography scene such as poor lighting and environmental noise in order to reliably record optical information, perform some image processing (segmentation, feature extraction, classification and interpretation) and then actuate some movement or execute some subroutine according to decision guidelines specified in the system program \cite{golnabi2007design}.
+
+Machine vision also has applications in mobile robotic navigation. Essential mobile robotic features such obstacle detection and occupancy mapping are typically implemented using sonar transducer and infrared rangefinders as spatial sensors or ``soft-vision'', whereas stereovision systems are useful for landmark localization and feature recognition when defining or referencing the ``pose'' of a mobile robot. Using ``hard-vision'' for obstacle detection and occupancy mapping is prone to errors, as losses are introduced when transposing disparity maps to a computable model \cite{murray2000using}. This issue and others similar to it are discussed further in Section \ref{sec:background_variance}. 
+
+\section{Microcontrollers in Vision Systems}
+Several experimental projects have been undertaken to test the reliability and general capabilities of microcontroller based vision systems, in particular during real-time exercises. These projects typically implement simple computer vision algorithms that are normally executed by a powerful host systems, which have greatly increased cost and complexity compared to hardware not capable of fully taking advantage of the usefulness of these powerful vision algorithms. The widespread availability and accessibility of CMOS color cameras and high speed microcontrollers have made the implementation of fully embedded and low cost vision systems possible \cite{rowe2002low}.
+
+\section{Effects of Variance in Image Processing}\label{sec:background_variance}
+Variance (see Equation \ref{eq:variance}) is the measure of how far a set of numbers is spread out. Referring to image processing, variance is used to describe the spread of a sample space of ideally identical values. Decision making complexity is reduced greatly with the reduction of variance for segmentation, thresholding and edge detection, where the ideal values to be computed should be as similar as possible within their respective ``real'' likeness. Also note that a debatable assumption is that the variance of a pixel is equal to the variance of all pixels within some range of the sample \cite{lee1980digital}.
+ 
+\begin{equation} \label{eq:variance}
+s^2 = \frac{\Sigma(x-\bar{x})}{n}
+\end{equation}
+
+It has been shown that variance in a stereovision application can be analyzed statistically and subsequently modelled as some system of variables and parameters that describe the functionality of some image processing or analysis task. This mathematical model was derived from a stereovision disparity map \cite{matthies1994stochastic}.
+
+\section{Existing Projects and Solutions}
+Real-time object detection and localization is a technology widely implemented in mobile and non-mobile robotics for a variety of applications. It has been shown that this same detection and localization technology can be used to reliably extract features of a \emph{Rubik's Cube} from a high framerate video stream. \emph{OpenCV} technology is a free computer vision software library designed for versatility and compatibility with a wide range of tools, also showing a strong focus on computational efficiency for real-time applications \cite{opencvorg}. These software libraries were utilized to create a system capable of real-time tracking and segmentation of \emph{Rubik's Cube} stickers \cite{opencv}.
+
+The \emph{Rubik's Cube} puzzle has been used to test and partially apply expected tasks of robotic systems in industrial environments. Precision of movement, sensing and reasoning and overall integration of vision and actuation are all properties desired for industrial and service robots, and \emph{Rubik's Cube} solving machines alike. \emph{Warsaw University of Technology} used these methodologies to create a robotics software framework, with the Rubik's Cube puzzle serving as a benchmark for success and viability of the system \cite{zielinski2006rubik}.
+
+
+
+\chapter{Experimental Research} % Main chapter title
+\label{chap:research} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+\lhead{Chapter 3. \emph{Experimental Research}}
+
+
+\section{Vector Field Colour Approximation}\label{sec:vector}
+Initial experiments were conducted on the test image in Figure \ref{fig:litfig} to highlight the benefits and detriments of the \textbf{RGB} colour space when performing colour segmentation using low complexity clustering techniques. A \emph{Logitech C120} webcam was calibrated to capture images at a low resolution in an effort to replicate the implementation of the \textbf{CMOS} camera in the embedded system. This same resolution was also used in the implementation of a simulated image construct as discussed in Section \ref{sec:image_replication}, to replicate realistic memory usage and observe the timeliness of image processing at that scale on the embedded device.
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{Litfig.eps}
+  \end{center}
+  \caption{Low resolution image for sampling and testing}
+  \label{fig:litfig}
+\end{figure}
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=\textwidth]{rgb.eps}
+  \end{center}
+  \caption{Experimental results showing \textbf{RGB} clusters of like coloured stickers}
+  \label{fig:rgbtest}
+\end{figure}
+
+It was repeatedly observed that the mean of samples taken from the centre of a single sticker had a large variance (see table \ref{tab:rgb_var}), which could potentially cause problems during segmentation, as the segmentation algorithm relies on the definition of strict boundaries that differ one colour from another. The spikes in variance were much greater for red and blue stickers, this finding can be visually observed in figure \ref{fig:rgbtest}. These spikes in variance can be caused by random quantization errors during the transformation of three-dimensional information (stereovision disparity checks or high level colour spaces) into a one-dimensional numerical format, or by visual artefacts commonly found when recreating bright luminousity and environmental effects from glare in an image \cite{mccann2007camera}. 
+
+\begin{table}[htbp]
+  \begin{minipage}[b]{0.5\linewidth}
+    \centering
+    \begin{tabular}{c c c}
+    \hline
+    Colour channel & Sticker Colour & Variance ($s^2$)\\
+    \hline
+    \textbf{R} & Yellow & 149.00 \\ 
+    \textbf{G} & Yellow & 163.50 \\ 
+    \textbf{B} & Yellow & 29.659 \\ 
+    \textbf{R} & Orange & 48.840 \\ 
+    \textbf{G} & Orange & 17.518 \\ 
+    \textbf{B} & Orange & 27.477 \\ 
+    \textbf{R} & Green & 67.543 \\ 
+    \textbf{G} & Green & 78.916 \\ 
+    \textbf{B} & Green & 88.462 \\ 
+    \hline \hline
+    Average $s^2$ & & 666 \\
+  \end{tabular}
+  \caption{Variance in \textbf{RGB} values of like sticker colours}
+  \label{tab:rgb_var}
+  \end{minipage}
+  \hspace{0.5cm}
+  \begin{minipage}[b]{0.5\linewidth}
+    \centering
+    \begin{tabular}{l r}
+    \hline
+    Sticker Colour & Variance ($s^2$)\\
+    \hline
+    Yellow & 1.6702 \\ 
+    Blue & 6.4094 \\ 
+    Green & 0.94316 \\ 
+    Orange & 1.8701 \\ 
+    Red & 10.984 \\
+    \hline \hline
+    Average $s^2$ & 10
+  \end{tabular}
+  \caption{Variance in hue of like sticker colours}
+  \label{tab:hue_var}    
+  \end{minipage}
+\end{table}
+
+%%Need to include code for the experiments?
+
+\section{Color Space Conversion for Optimisation}
+Clustering methods can be computationally expensive, and can potentially produce errors during segmentation as discussed in Section \ref{sec:vector}. Each set contains three dimensions of information, which can be reduced to one dimension of complexity, at the cost of some overlap between distinctive colours. This effect is due to each dimension being combined and projected onto a one dimensional line that contains all information \cite{celenk1991colour}.\\
+
+Once the colour information has been reduced to one dimension, it is a simple thresholding process to classify the different colours. This same thresholding can be performed with simpler boundaries using the \textbf{HSV} colour space, as the sample variance is less than that of clustered samples (see Table \ref{tab:hue_var}), and it is a one dimensional value for this exercise (once the white samples have been extracted). It was experimentally demonstrated that one dimensional (hue) classification will be a viable method of decision making during the segmentation process, assigning ``stickers'' their detected colours. The small variance in the hue of like sticker colours can be visually observed in Figure \ref{fig:huetest}.\\
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=\textwidth]{hue.eps}
+  \end{center}
+  \caption{Experimental results showing the hue of stickers}
+  \label{fig:huetest}
+\end{figure}
+
+The hue of a pixel is found by performing a simple algorithm, consisting of some comparitive tasks, division using decimal numbers, and basic arithmetic. Specifically, the red, green, and blue channels are scaled to values from 0 to 1, and the maximum and minimum of that dataset is also recorded. This step is described mathematically in Equation \ref{eq:scale}.
+
+%Scaling/Delta/maxmin
+\begin{equation}\label{eq:scale}
+\begin{split}
+R' = R/31\\
+G' = G/63\\
+B' = B/31\\
+C_{max} = max(R',G',B')\\
+C_{min} = min(R',G',B')\\
+\Delta = C_{max} - C_{min}
+\end{split}
+\end{equation}
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{wheel.jpg}
+  \end{center}
+  \caption{Rotational axis of the \textbf{HSV} colour space (Hue)}
+  \label{fig:wheel}
+\end{figure}
+
+The hue is found by first determining which colour channel (in \textbf{RGB}) was the maximum of the pixel's colour value. then perform some arithmetic based on the decision, and returns a hue that can be then scaled by a degree offset. The offset is required as the hues of red, green and blue begin at different places on the rotational axis of the ``HSV wheel'' (See Figure \ref{fig:wheel}). This step is mathematically described in Equation \ref{eq:hue}.
+
+% Hue
+\begin{equation}\label{eq:hue}
+H = \left\{
+\begin{array}{l l}
+  60^{\circ} \times \frac{G'-B'}{\Delta} & \quad ,C_{max} = R'\\
+  60^{\circ} \times (\frac{B'-R'}{\Delta}+2) & \quad ,C_{max} = G'\\
+  60^{\circ} \times (\frac{R'-G'}{\Delta}+4) & \quad ,C_{max} = B'
+\end{array} \right.
+\end{equation}
+
+The saturation of the sample is required for the first part of the classification process, which is to decide whether or not the sample pixel is white. If it is not white, the system can proceed to calculate the hue and assign the sample a determined colour, this process can potentially save on computing time for all white stickers, as their hue is not required. The saturation is found by checking the $\Delta$ value as determined by equation \ref{eq:scale}. This step is mathematically described in Equation \ref{eq:sat}.
+
+% Saturation
+\begin{equation}\label{eq:sat}
+S = \left\{
+\begin{array}{l l}
+  0 & \quad ,\Delta = 0\\
+  \frac{\Delta}{C_{max}} & \quad ,\Delta <> 0
+\end{array} \right.
+\end{equation}
+
+
+\chapter{Design}
+\label{chap:design} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+\lhead{Chapter 4. \emph{Design}}
+
+\section{System and Hardware Design}\label{sec:hardware}
+The overall system is designed to be as modular as possible, potentially accomodating alternate vision solutions and expansion into other purposes and functionality. This modular design meant seperating the project's physical device structure into two seperate entities: an embedded system dedicated entirely to driving the required external components and performing image processing, and a compatible breakout for a small \textbf{CMOS} camera module. The top-level system diagram can be seen in Figure \ref{fig:system}, where one external component shown is the UART-USB converter module (PL2303HX), it's purpose is described in more detail in Section \ref{sec:image_pcb}.
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.9\textwidth]{system.eps}
+  \end{center}
+  \caption{Basic diagram of technical system components}
+  \label{fig:system}
+\end{figure}
+
+\subsection{Image Processing PCB}\label{sec:image_pcb}
+The image processing board is the sole and central controller of the system, utilising a microcontroller to drive the external and board mounted components (a system diagram can be found in Figure \ref{fig:mainpcb}). The microcontroller is a 32-bit \textbf{AVR} (UC3C1512C), which was chosen mainly because the system will require the ability to handle floating point operations in order to accurately perform image processing and analysis. The microcontroller also has 512 kilobytes of flash memory, which enables the easy storage of a large program file and at least one image at low resolution that can subsequently be processed and analysed. The system is also capable of a maximum operating frequency of 66 Mhz. which allows many instructions to be executed in shorter periods of time. An \textbf{RS232} connection is used to transfer the found configuration of captured cube image (to a solver or pc), which is driven by the microcontroller's \textbf{USART} module. The \textbf{USART} signal levels are natively \textbf{TTL}, which require extra hardware in order to step the amplitude up to levels defined in the \textbf{RS232} standard (for PC communication only, solver communication is at \textbf{TTL} level). For more specific information on the AVR microcontroller used, consult the device datasheet \cite{at32uc3c}. 
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{mainpcb.eps}
+  \end{center}
+  \caption{System level view of the image processing device}
+  \label{fig:mainpcb}
+\end{figure}
+
+\subsection{Camera PCB}\label{sec:cam_pcb}
+This \textbf{PCB} is designed as a simple ``breakout board'' for the Toshiba TCM8230MD \textbf{CMOS} camera module (as described in Figure \ref{fig:campcb}), the design of which allows the \textbf{PCB} to be connected to the image processing board in a ``sheild style'', similar to an Arduino or Raspberry Pi add-on, or as a totally modular and extendable device. The \textbf{CMOS} camera module has special operating voltage requirements, an input of 1.5V and another of 2.8V, which the $I^2C$ pins will be ``pulled-up'' to in order to produce clean square wave signals (discussed further in Section \ref{sec:i2c_redesign}). It also supports multiple resolutions, low power configurations, multiple colour spaces and high framerates, see the TCM8230MD datasheet \cite{tcm8230md} for more details.\\
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{cam.eps}
+  \end{center}
+  \caption{System level view of the camera breakout board}
+  \label{fig:campcb}
+\end{figure}
+
+\section{Embedded Software Design}\label{sec:embedded_software}
+The embedded software was designed to be as modular and portable as possible to allow code developed for image processing and analysis to be included as a library of functions during the implementation phase. This modular design also accomodated the incorporation of base functionality libraries provided in the \textbf{ASF} where applicable. Each individual library serves to either initialize, drive, or provide computable functionality to the top-level of the system, where the main program loop is contained and all tasks are delegated. The software design structure defines libraries for board initializing, peripheral control (LCD/UART/TWI/PWM) and image processing, for example, the BOARD INIT block refers to the file \verb board_init.c  and it's accompanying header file \verb board_init.h  The software design structure is shown in Figure \ref{fig:software_design}.\\
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{software_structure.eps}
+  \end{center}
+  \caption{Top down, modular embedded software structure}
+  \label{fig:software_design}
+\end{figure}
+
+
+\section{Image Processing and Analysis}\label{sec:image_simulation}
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{lena.eps}
+  \end{center}
+  \caption{Image processing example on lena image \cite{tolga2008}}
+  \label{fig:lena}
+\end{figure}
+
+Image processing refers to a system taking an input image, performing some task on the input data and then returning an output image. This project utilizes step by step image processing similar to that shown in Figure \ref{fig:lena}, where one colour space being converted to another is the singular task required (as described in Figures \ref{fig:raw_rgb} and \ref{fig:rgb_hsv}).  
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.75\textwidth]{raw_rgb.eps}
+  \end{center}
+  \caption{Illustrating input-output structure of RAW to RGB565 conversion.}
+  \label{fig:raw_rgb}
+\end{figure}
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.75\textwidth]{rgb_hsv.eps}
+  \end{center}
+  \caption{Input-output structure of the RGB565 to HSV conversion}
+  \label{fig:rgb_hsv}
+\end{figure}
+
+Obtaining specific metrics for a parameter within an image is known as image analysis, in Figure \ref{fig:huetest} we analyse particular pixels of a test image and return a hue value for each, \emph{analysing} the pixels. The implementation of image analysis in this project is describe in Section \ref{sec:segment}
+
+%%Insert image analysis structure
+
+\section{Revision for Architecture Limitations}\label{sec:revision_arch}
+The image processing and analysis tasks were tested on PC architecture, which provided an expansive and versatile development environment, but also resulted in a careless amount of memory usage and lack of consideration of the general computational limitations of the microcontroller architecture that the system would eventually be deployed on.\\
+
+The initial algorithm design outputs a full resolution image at each stage of completion during the image processing procedure. Meaning when the raw image is converted to \textbf{RGB565}, an array for each colour channel is filled with their respective values, and when these value are converted to hue, another array is created at the full image size, filled with the hue values of each pixel. This is very inefficient and is essentially storing a new image each time some processing is performed. This inefficiency can be improved by simply moving the sample point of the algorithm, that is, the point where enough information to perform image analysis is reduced to an array of samples (one for each sticker in the image). It is observed in Figure \ref{fig:inefficient} that this sampling point is the final stage of the image processing procedure.
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{inefficient.eps}
+  \end{center}
+  \caption{Sticker samples taken late in the image processing}
+  \label{fig:inefficient}
+\end{figure}
+
+Initial objectives for this project defined that the system would not be ``smart'' and detect which parts of the image to sample, it would instead rely on a constant photographic position in order to sample the correct pixels each time. This was deemed appropriate because the competitive solving systems are commonly in fixed positions and also adopt this technique. As the system is not dynamic, a sampling point can be made early in the processing stages, drastically reducing the memory usage of the system. This is achieved by loading a full raw image into memory, and extracting the required sample pixels before converting to a tangible image format (\textbf{RGB565} or \textbf{HSV}). This means that every subsequent output of an image processing block is reconstructed from the amount of samples, instead of a full sized image. This altered algorithm flow is shown in Figure \ref{fig:improved}. 
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{improved.eps}
+  \end{center}
+  \caption{Sample point taken earlier in the image processing}
+  \label{fig:improved}
+\end{figure}
+
+\section{PCB Revision for I2C Compatibility}\label{sec:i2c_redesign}
+It was mentioned in Section \ref{sec:cam_pcb} that the original camera breakout board did not correctly support the I2C protocol. Initial testing of the \textbf{TWI} interface showed poor performance in regards to rise time and the measured frequency, which due to the stringent timing requirements of the camera's \textbf{I2C} module was deemed to be a poor design that should be reconsidered in a later revision. Generally, \textbf{I2C} devices have intrinsic pullup resistors that can improve signal quality and timing, but it is preferred to ensure that each \textbf{I2C} line has carefully selected external pullup resistors that match the intrinsic capacitance of their respective pins \cite{truchsess2010}. Equation \ref{eq:pullup} describes the calculation that enforced the decision to implemement $1k \Omega$ pullup resistors, where $R_p$ is the smallest desired resistance value for this application.
+
+\begin{equation}\label{eq:pullup}
+\begin{split}
+  R_p & = \frac{V_{cc}-0.4}{3mA} \\
+  R_p & = \frac{3.3V-0.4}{3mA} \\
+  R_p & = 966\Omega \\
+\end{split}
+\end{equation}
+
+An updated schematic diagram was drawn according to the metrics defined in Equation \ref{eq:pullup}, and a new \textbf{PCB} designed to incorporate the addition of the \textbf{I2C} 
+
+
+\chapter{Implementation}
+\label{chap:implementation} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+\lhead{Chapter 5. \emph{Implementation}}
+
+\section{Image Processing}
+This section describes how various image processing techniques were implemented. Refer to Section \ref{sec:image_simulation} for the discussion on image processing design for the system.
+
+\subsection{Image Replication for Simulation}\label{sec:image_replication}
+\verb x_res  and \verb y_res  correspond to the ideal camera resolution a single sticker occupies, \verb total_x_width  represents the horizontal resolution of the image. This function assigns a raw sticker colour (from an array, see Appendix ) to a single sticker, which then requires the addition of some basic random noise to create a slightly more realistic environment, as it was discussed in Section \ref{sec:vector} that recreating the exact luminousity of the scenario is difficult and can introduce sporadic spikes of brightness and glare. The image is then deconstructed into red, green and blue channels according to the \textbf{RGB565} format, see Section \ref{sec:obtaining_rgb} for how this deconstruction is achieved.
+
+\begin{verbatim}
+for(i=0;i<y_res;i++){
+  for(j=0;j<x_res;j++){
+    image[(total_x_width*i)+j] = sticker_colour;
+  }
+}
+\end{verbatim}
+
+The noise factor determines the potential variance in the respective colour channels that get assigned the random noise. This implementation generates purely additive ``noise''. Without this basic random number assignment the simulated image construct has values so clean that the discrete boundaries need absolutely no calibration, and do not provide a useful stimuli for the image segmentation and classification.
+
+\begin{verbatim}
+for(i=0;i<image_resolution;i++){
+  r[i] += (rand() % noise_factor + 1);
+  g[i] += (rand() % noise_factor + 1);
+  b[i] += (rand() % noise_factor + 1);
+}
+\end{verbatim}
+
+\subsection{Obtaining a RGB image from raw values}\label{sec:obtaining_rgb}
+The raw values are assigned a bit mask according to the \textbf{RGB565} standard, meaning that the top five bits correspond to the red value, the middle six are the green value, and the bottom five are the blue value. Once the raw values have been masked and assigned to an array for each channel (\verb r[i],g[i],b[i] ) they must be shifted so that their LSB is in bit zero and no channel has a weighted value (red occupies the top bits and is shifted further, whereas the channel's LSB was already in bit zero and did not require shifting).
+
+\begin{verbatim}
+#define red_mask 0xF800
+#define green_mask 0x07E0
+#define blue_mask 0x001F
+for(i=0;i<image_size;i++){
+  r[i] = (image[i] & red_mask) >> 11;
+  g[i] = (image[i] & green_mask) >> 5;
+  b[i] = image[i] & blue_mask;
+}
+\end{verbatim}
+
+
+
+
+\section{Image Analysis}
+This section details how basic analysis of the image data was implemented. Refer to Section \ref{sec:image_simulation} for the discussion on image analysis design for the system.
+
+\subsection{Segmentation and Classification}\label{sec:segment}
+%Appropriate boundaries and decision making (Is it red/white etc.)
+
+The general segmentation process for each sample pixel simply checks which boundaries the respective pixels belongs in and associates it with the colour corresponding to those boundary definitions. In this case, the number of samples is just one per sticker, but this implementation is kept when increasing the amount of samples as only one mean of samples will be calculated per sticker (\verb sample_size becomes \verb number_of_means ).
+
+\begin{verbatim}
+for(i=0;i<sample_size;i++){
+  if(hue_sample[i]>low_bound & hue_sample[i]<up_bound){    
+    face[i] = 'colour_based_on_bounds';
+  }
+}
+\end{verbatim}
+
+In some cases, the typical value for a colour may by on both ends of the scale, as the results are scaled to the $0^{\circ}$ to $360^{\circ}$ range in the last stage of the colour conversion process. This is mostly necessary for colours similar to red. This method assigns two bounds for each check, between zero and a higher bound \textbf{OR} between a large number and zero).
+
+\begin{verbatim}
+if(hue_sample[i]<10 | hue_sample[i]>340){    
+  //red
+  face[i] = 'R';
+}
+\end{verbatim}
+
+\section{Embedded System}
+
+\subsection{LCD Module}\label{sec:lcd_module}
+The LCD driver (HD44780) supports an 8-bit data interface, which depending on whether a control signal is set, will display the written data as text, or send a command to the LCD module in order to configure it's display or simply initialise the module. Writing to the LCD or sending commands is done by stepping through the data array and checking whether the bit is zero or one and setting the LCD data pins accordingly.
+ 
+\begin{verbatim}
+for(pin = 0;pin < 8;pin++){		
+  if ((data_byte&bit)==0){
+    gpio_local_clr_gpio_pin(lcd_data[pin]);
+  }
+  else{
+    gpio_local_set_gpio_pin(lcd_data[pin]);
+  }
+  bit = bit << 1;
+}
+\end{verbatim}
+
+The implementation for sending commands to the LCD is described in Figure \ref{fig:lcd_cmd}, and writing text to the LCD is described in Figure \ref{fig:lcd_data}. Note that ``write data to pins'' refers to the method of stepping through the data to be written and setting the LCD data pins accordingly, as described in the code in Section \ref{sec:lcd_module}.
+
+\begin{figure}[htbp]
+  \begin{minipage}[b]{0.5\linewidth}
+    \centering
+    \includegraphics[width=\linewidth,height=0.5\textwidth,keepaspectratio]{lcd_cmd.eps}
+    \caption{Sending commands to configure the LCD driver}
+    \label{fig:lcd_cmd}
+  \end{minipage}
+  \hspace{0.5cm}
+  \begin{minipage}[b]{0.5\linewidth}
+    \centering
+    \includegraphics[width=\linewidth,height=0.7\textwidth,keepaspectratio]{lcd_data.eps}
+    \caption{Writing text to the LCD display}
+    \label{fig:lcd_data}
+  \end{minipage}
+\end{figure}
+
+Initialising the LCD requires that the driver be send various commands that adhere to strict timing as described in the HD44780 datasheet \cite{hd44780}. Each block in Figure \ref{fig:lcd_init} is actually describing the process of sending a command to the LCD, and the block is containing the command to be sent. How to send a command is described in Figure \ref{fig:lcd_cmd}.
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.7\textwidth, height=0.5\textwidth,keepaspectratio]{lcd_init.eps}
+  \end{center}
+  \caption{Initialisation routine diagram of the HD44780 LCD driver}
+  \label{fig:lcd_init}
+\end{figure}
+
+Writing a string of text to the LCD requires that the cursor position be updated (done so by sending a command) and then a character written to the LCD while the string is not finished. This process is described graphically in Figure \ref{fig:lcd_string}
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.7\textwidth, height=0.5\textwidth,keepaspectratio]{lcd_string.eps}
+  \end{center}
+  \caption{Implementation of writing a string to the LCD}
+  \label{fig:lcd_string}
+\end{figure}
+
+\subsection{System Clock}
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.7\textwidth, height=0.65\textwidth,keepaspectratio]{osc.eps}
+  \end{center}
+  \caption{System CPU frequency setup using the PLL module}
+  \label{fig:osc_setup}
+\end{figure}
+
+Figure \ref{fig:osc_setup} details how the system's \textbf{CPU} frequency is increased from a 16Mhz crystal at input OSC0 to 66Mhz using the microcontroller's \textbf{PLL} module. 
+
+\subsection{USART controller}
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.7\textwidth, height=0.7\textwidth,keepaspectratio]{uart.eps}
+  \end{center}
+  \caption{Initialization routine of the USART module}
+  \label{fig:uart_setup}
+\end{figure}
+
+The \textbf{USART} module uses interrupts to improve efficiency of the system when recieving characters and when a character is ready to be transmitted. Several communication modes are available to be used, largely for handshaking and protocols other than \textbf{RS232}, but as the \textbf{CTS} and \textbf{RTS} (flow control) pins are connected in the system schematic they are a viable addition to the implementation of \textbf{UART} communications. The exact initialization routine is described in Figure \ref{fig:uart_setup}.
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.7\textwidth, height=0.5\textwidth,keepaspectratio]{uart_write.eps}
+  \end{center}
+  \caption{Transmitting a string using UART}
+  \label{fig:uart_write}
+\end{figure}
+
+Checking if the \textbf{UART} is ready also has a subroutine, which simply returns a BUSY signal until the controller is ready to accept another character. The SET CHARACTER routine also has a timeout feature, which will return SUCCESS = 0 upon timeout, the usage of these subroutines is shown in Figure \ref{fig:uart_write}.
+
+\chapter{Testing}
+\label{chap:testing} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+\lhead{Chapter 6. \emph{Testing}}
+The testing methodologies employed in the project were largely applied during the development of a base system, that is, a ``blank slate'' of hardware that can be programmed and configured to acheive some objective as a system. The following sections describe the signal level testing of functionality of the base system.
+
+\section{External Oscillator and PWM}
+The \textbf{PWM} is configured to supply discrete variable clock signals to the camera module, and it was chosen for the ability to refresh or change the modulation on the fly, which made it preferable to using a generic clock module for the same application. More accurate methods of calculating period and duty cycle values that correspond with a regular ``clock-like'' signal were considered. An oscilliscope image capture of the \textbf{PWM} performance is shown in Figure \ref{fig:pwm_test}. The external crystal oscillator has an ideal operating frequency of 16Mhz, which is confirmed in Figure \ref{fig:osc_test}. 
+
+\begin{figure}[htbp]
+  \begin{minipage}[b]{0.5\linewidth}
+    \centering
+    \includegraphics[width=\linewidth,keepaspectratio]{pwm.png}
+    \caption{Oscilliscope confirmation of pulse width modulated signal at high frequency}
+    \label{fig:pwm_test}
+  \end{minipage}
+  \hspace{0.5cm}
+  \begin{minipage}[b]{0.5\linewidth}
+    \centering
+    \includegraphics[width=\linewidth,keepaspectratio]{osc.png}
+    \caption{External crystal oscillator operating correctly at the expected frequency}
+    \label{fig:osc_test}
+  \end{minipage}
+\end{figure}
+
+\section{LCD Display Module}
+The \textbf{LCD} is required to display to the user information regarding the status of the system, including but not limited to the successful initialisation of components, prompting of the user for some input, the status of any operation, and the results of the image processing and analysis procedure. Signals used to control the sending of commands or writing of data to the \textbf{LCD} display (\textbf{LCDEN} and \textbf{LCDRS}) can be viewed in Figures \ref{fig:lcde_test} and \ref{fig:lcdrs_test}, respectfully.
+
+\begin{figure}[htbp]
+  \begin{minipage}[b]{0.5\linewidth}
+    \centering
+    \includegraphics[width=\linewidth,keepaspectratio]{lcde.png}
+    \caption{LCDE signal enabling commands to configure the module, also required to display characters}
+    \label{fig:lcde_test}
+  \end{minipage}
+  \hspace{0.5cm}
+  \begin{minipage}[b]{0.5\linewidth}
+    \centering
+    \includegraphics[width=\linewidth,keepaspectratio]{lcdrs.png}
+    \caption{LCDRS signal showing the successful writing of a string to the display}
+    \label{fig:lcdrs_test}
+  \end{minipage}
+\end{figure}
+
+\section{Universal Asynchrous Receiver Transmitter}
+The \textbf{UART} module was initially configured to transmit only, and not use the synchronous configuration available (note that in this document, \textbf{USART} is often mentioned, when the system implemented is really asynchronous). The final system would dump an \textbf{ASCII} string of characters to a terminal or solving machine, so simulated results were used to test the transmission quality and reliability at a baud rate of 9600, which can be increased in the final implementation of the \textbf{UART}. A transmission signal (sending a string of \textbf{ASCII} characters) captured for analysis can be seen in Figure \ref{fig:uart_test}.
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.5\textwidth,keepaspectratio]{uartstring.png}
+  \end{center}
+  \caption{Excerpt of transmission signal sending a large string to a terminal}
+  \label{fig:uart_test}
+\end{figure}
+
+\section{LT1616 Regulator Circuit}
+The system was designed to operate from a 3.3V voltage supply, which was implemented using the LT1616 switching regulator, with schematic guidelines provided in the device datasheet and application notes. The circuit was tested initially upon assembly and confirmed to be operational in any case where a problem may arise and the integrity of the supply could be questioned. 
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.5\textwidth,keepaspectratio]{reg_output.png}
+  \end{center}
+  \caption{Regulated system supply voltage at the output of the LT1616 applied circuit}
+  \label{fig:reg_test}
+\end{figure}
+ 
+(Application notes for the switching regulator employed in the system can be found in the respective device datasheet \cite{lt1616}). (Application notes dealing with the construction of a compatible microcontroller schematic can be found in the Schematic Checklist \cite{uc3schematic}).
+
+\section{Software Debugging}
+
+\begin{verbatim}
+
+\end{verbatim}
+
+
+
+\chapter{Project Management}
+\label{chap:project_man} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+\lhead{Chapter 7. \emph{Project Management}}
+
+\section{Risk Assessment}
+It was defined in the \emph{Rubik's Cube Vision System Project Plan} that ``several risks were apparant'', as the implementation of the system design relied entirely on portable functionality of the tested image processing software and a robust embedded design. Risks that were defined during the early stages of the project, and their respective outcomes are defined in the following subsections.
+
+\subsection{Timeliness of System Performance}
+As the sole processing and control device in the system was chosen to be a singular embedded device, it was of upmost concern to select a microcontroller that could meet a competitive level of performance with regard to timeliness. The probability that this would be an issue was deemed ``medium'', with a ``low'' to ``medium'' impact on the project objective outcome and overall schedule. This risk also described the potential for the system to have insufficient memory capabilities for any data storage requirements, which was categorised as ``low'' as a modular memory design could be implemented with any microcontroller device within the same product family that was chosen.
+
+Excluding image acquisition, the final system is able to process, sample and analyse image data in a very timely manner, and the computational power of the selected component was very adequate for the application. In regards to potential memory shortcomings, experiments with simulated image data demonstrated that the inbuilt flash memory was sufficient to store a data describing both a raw numerical image and a three channel (\textbf{RGB}) image, meeting the storage requirements even without the implementation of external memory. 
+
+\subsection{Effects of Environment and Lighting}
+It has been discussed in Sections \ref{sec:machine_vision} and \ref{sec:vector} that the recreation of environmental lighting causes undesirable artifacts in the acquired image data. This was identified as a potential problem in the \emph{Project Plan}, and was given a ``high'' probability of occurence, with a ``high'' impact on the functionality and project outcomes. This was justified by the generally unpredictable nature of natural lighting, which would require the implementation of a well designed lighting system in order to properly diffuse artificial light evenly into the photographic scene, likely resulting in data that was offset by some value due to the increased luminousity, but yielding a more consistent variance in sample pixel ranges.
+
+Initial plans regarding the classification of sticker colours defined segmentation by clustering as the primary desired method, which was later deemed to be potentially too complex (computationally), as the results displayed a large variance even with the introduction of ideal sampling and controlled lighting. The conversion to the \textbf{HSV} colour space demonstrated improved results, as some ``glare'' is filtered as saturation, which is not considered for any colour in the segmentation process (besides white of course).
+   
+\subsection{Task Pipelining and Management}
+Another primary risk defined in the \emph{Project Plan} was the potential to lose control of component supply and to not meet time requirements of critical and dependant tasks. Denied accessibility to particular components can halt assembly and testing of subsystems and the overall implementation of driver software, but it was deemed a ``low'' impact risk as most components with a particular desired functionality can be replaced with an obsolete version if stock is on hand, or a revised component choice can be made (providing the newly selected component meets the footprint metrics).
+
+This risk was circumvented largely by placing the majority of component orders early in the project timeline and ensuring the components are readily available from the same supplier, meaning in the case that a product was not stocked by the favourable supplier, a similar component that could provide identical functionality with the same physical constraints would be ordered instead. Time management was consistently a problem, and being able to adapt to a change in task priority was a skill practised heavily over the duration of all phases of the project.
+  
+\section{Budget}
+The initial project had an allowance for miscellaneous electronic components that would be required during device assembl 
+
+Some \textbf{PCB} components were able to be sampled directly from the manufacturer rather than purchased in large quantities through a preferred vendor. See Table \ref{tab:non_budgeted} for an itemization of sampled and university provided resources.
+
+\begin{table}[htbp]
+  \begin{minipage}[b]{0.5\linewidth}
+    \centering
+    \begin{tabular}{l r}
+    \hline
+    Item & Cost\\
+    \hline
+    TCM8230MD Camera & \$9.95 \\ 
+    AVR microcontrollers & \$30.00 \\ 
+    PCB manufacturing & \$30.00 \\
+    USB testing webcam & \$20.00 \\ 
+    Miscellaneous components & \$50.00 \\ 
+    \hline \hline
+    Total & \$0.00 \\
+  \end{tabular}
+  \caption{Estimated project budget for Project Plan}
+  \label{tab:budget_one}
+  \end{minipage}
+  \hspace{0.5cm}
+  \begin{minipage}[b]{0.5\linewidth}
+    \centering
+    \begin{tabular}{l r}
+    \hline
+    Item & Provider\\
+    \hline
+    AVR Dragon & Robert Ross \\ 
+    AT32UC3C1512C & Atmel (sample) \\ 
+    LT1616fs & Linear Tech \\
+    \hline \hline
+  \end{tabular}
+  \caption{Non-budgeted resources and sampled components}
+  \label{tab:non_budgeted}
+  \end{minipage}
+\end{table}
+
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{l c r}
+    \hline
+    Item & Quantity & Cost\\
+    \hline    
+    DB9 connector & 2 & \$3.84 \\ 
+    Battery holder & 2 & \$3.20 \\ 
+    Assorted breadboard jumpers & 2 & \$9.90 \\ 
+    USB-TTL PL2303HX & 1 & \$7.90 \\ 
+    Push button switch & 5 & \$2.25 \\ 
+    20x4 LCD HD44780 & 1 & \$11.90 \\ 
+    DC Barrel Jack & 2 & \$3.00 \\ 
+    TCM8230MD Camera & 2 & \$22.88 \\ 
+    Logitech webcam & 1 & \$20.00 \\ 
+    JTAG connector & 2 & \$5.79 \\ 
+    JTAG header & 2 & \$ \\
+    Misc 0805 components & 1 & \$ \\ 
+    DPDT slide switch & 3 & \$ \\
+    \hline \hline
+    Total & & \$0.00 \\ 
+    \hline
+  \end{tabular}
+  \caption{Cost breakdown of actual budgeted resources}
+  \label{tab:real_budget}
+\end{table}
+
+\section{Project Timeline}
+
+%%Gannt chart plus comments
+
+
+
+\chapter{Conclusion}
+\label{chap:conc} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+\lhead{Chapter 8. \emph{Conclusion}}
+
+
+\section{Project Accomplishments}
+\begin{itemize}
+\item Tangible experimental results indicating benefits and detriments of clustering techniques.
+\item Portable and efficient colour space conversion algorithm implemented.
+\item Timely and reliable segmentation of simulated image construct.
+\item Consistently accurate 'dump' of cube configuration to PC/solver. 
+\item General system features and foundations:
+  \begin{itemize}
+    \item Configurable and accurate hardware \textbf{PWM} for external clocking of camera module.
+    \item Stable \textbf{TTL} voltage regulating circuit implemented.
+    \item Functional \textbf{UART} implemented to facilitate \textbf{RS232} protocol.
+  \end{itemize}
+\end{itemize}
+
+\section{Project Drawbacks}
+\begin{itemize}
+%%\item Embedded camera system not implemented.
+\item \textbf{LCD} module not fully functional (no 4-line mode).
+\item Technical oversights:
+  \begin{itemize}
+    \item 3.3V supply is compatible with \textbf{LCD} driver circuit, but the ideal \textbf{LCD} module supply should be 5V.
+    \item Initial \textbf{PCB} design did not incorporate a truly compatible $I^2C$ circuit.
+    \item Standard footprints were used for the 20x4 character \textbf{LCD} module, which was slightly smaller than the typical size.
+  \end{itemize}
+\end{itemize}
+
+\section{Future Work Endeavours}
+\begin{itemize}
+  %%\item Implement a camera module with a different communications protocol.
+  \item Implement clustering techniques for classification on the embedded system. 
+  \item Redesign the system where applicable to support a 5V power supply.
+\end{itemize}
+
+\section{In Summary}
+This project has reinforced my understanding of concepts taught throughout my entire tertiary education. I have gained valuable organisational skills and flexibility of project managemement through the pipelining of tasks and ``constructive procrastination'', and improved my work ethic overall. Electronic design fundamentals and testing methodologies that were heavily practised throughout third year provided the basis for a very helpful set of skills applied during the design and testing phases of this project, with new skills including general familiarity with reliable and suitable component selection and manufacturing metrics being added to my knowledge base. This project has most importantly taught me that there is always an opportunity to learn and embrace new ideas, and that absolutely any technology available is a tool that you can learn to use as you need, to engineer your solution.  
+
+%----------------------------------------------------------------------------------------
+
+\addtocontents{toc}{\vspace{2em}} % Add a gap in the Contents, for aesthetics
+
+\appendix % Cue to tell LaTeX that the following 'chapters' are Appendices
+
+
+
+\chapter{Schematic Drawings} % Main appendix title
+\label{AppendixA} % For referencing this appendix elsewhere, use \ref{AppendixA}
+\lhead{Appendix A. \emph{Schematic Drawings}} % This is for the header on each page - perhaps a shortened title
+
+\section{TCM8230MD Schematic}
+\begin{center}
+\includegraphics[width=\textwidth]{PDFs/cam_schematic.pdf}
+\end{center}
+
+\section{TCM8230MD Revision Schematic}
+\begin{center}
+\includegraphics[width=\textwidth]{PDFs/i2c_cam_schematic.pdf}
+\end{center}
+
+\section{AT32UC3 Schematic}
+\begin{center}
+\includegraphics[width=\textwidth]{PDFs/MCU.pdf}
+\end{center}
+
+\section{HD44780 LCD Schematic}
+\begin{center}
+\includegraphics[width=\textwidth]{PDFs/LCD.pdf}
+\end{center}
+
+\section{LT1616 Schematic}
+\begin{center}
+\includegraphics[width=\textwidth]{PDFs/Power.pdf}
+\end{center}
+
+\section{GPIO Schematic}
+\begin{center}
+\includegraphics[width=\textwidth]{PDFs/GPIO.pdf}
+\end{center}
+
+
+
+\chapter{PCB Layouts} % Main appendix title
+\label{AppendixB} % For referencing this appendix elsewhere, use \ref{AppendixA}
+\lhead{Appendix B. \emph{PCB Layout Artwork}} % This is for the header on each page - perhaps a shortened title
+
+\section{TCM8230MD PCB Layout}
+\begin{center}
+\includegraphics[width=\textwidth]{PDFs/CAM_prototype_layout.pdf}
+\end{center}
+
+\section{TCM8230MD Revision PCB Layout}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{PDFs/i2c_cam.pdf}
+\end{center}
+
+\section{AT32UC3 PCB Layout}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{PDFs/DSP_prototype_layout.pdf}
+\end{center}
+
+
+
+\chapter{Code}
+\label{AppendixC}
+Please refer to attached storage medium.
+
+\addtocontents{toc}{\vspace{2em}} % Add a gap in the Contents, for aesthetics
+
+\backmatter
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+\label{Bibliography}
+
+\bibliographystyle{unsrt} % Use the "unsrtnat" BibTeX style for formatting the Bibliography
+\bibliography{Bibliography} % The references (bibliography) information are stored in the file named "Bibliography.bib"
+
+
+\end{document}  
